@@ -418,23 +418,80 @@ async def cb_handler(client: Client, query: CallbackQuery):
             await query.message.edit_text(text=new_text)
             return
             
+    
+
+    elif query.data == "buy":
+        user_id = query.from_user.id
+        free_trial_status = await db.get_free_trial_status(user_id)
+        if free_trial_status:           
+            btn = [            
+                [InlineKeyboardButton("🍁 𝗖𝗵𝗲𝗰𝗸 𝗔𝗹𝗹 𝗣𝗹𝗮𝗻𝘀 & 𝗣𝗿𝗶𝗰𝗲 🍁", callback_data="plans")],
+                [InlineKeyboardButton("⚠️ ᴄʟᴏsᴇ / ᴅᴇʟᴇᴛᴇ ⚠️", callback_data="close_data")]
+            ]
+            reply_markup = InlineKeyboardMarkup(btn)
+            await client.edit_message_media(
+                query.message.chat.id, 
+                query.message.id, 
+                InputMediaPhoto("https://graph.org/file/7245a826baf54607169a2.jpg")
+            )
+            reply_markup = InlineKeyboardMarkup(btn)
+            await query.message.edit_text(
+                text=(script.BUY_PREMIUM),
+                reply_markup=reply_markup,
+                parse_mode=enums.ParseMode.HTML
+            )
+            return
+        else:
+            
+            btn = [
+                [InlineKeyboardButton("🍁 𝗖𝗵𝗲𝗰𝗸 𝗔𝗹𝗹 𝗣𝗹𝗮𝗻𝘀 & 𝗣𝗿𝗶𝗰𝗲 🍁", callback_data="plans")],
+                [InlineKeyboardButton("🎉 ɢᴇᴛ 5 ᴍɪɴᴜᴛᴇs ꜰʀᴇᴇ ᴛʀᴀɪʟ 🎉", callback_data="get_trail")]
+            ]
+            reply_markup = InlineKeyboardMarkup(btn)
+            await client.edit_message_media(
+                query.message.chat.id, 
+                query.message.id, 
+                InputMediaPhoto("https://graph.org/file/7245a826baf54607169a2.jpg")
+            )
+            reply_markup = InlineKeyboardMarkup(btn)
+            await query.message.edit_text(
+                text=(script.BUY_PREMIUM),
+                reply_markup=reply_markup,
+                parse_mode=enums.ParseMode.HTML
+            )
+            return  
+            
     elif query.data == "buy_premium":
-        btn = [[            
-            InlineKeyboardButton("✅sᴇɴᴅ ʏᴏᴜʀ ᴘᴀʏᴍᴇɴᴛ ʀᴇᴄᴇɪᴘᴛ ʜᴇʀᴇ✅", user_id=admin)
-        ]
-            for admin in ADMINS
-        ]
-        btn.append(
-            [InlineKeyboardButton("⚠️ᴄʟᴏsᴇ / ᴅᴇʟᴇᴛᴇ⚠️", callback_data="close_data")]
-        )
-        reply_markup = InlineKeyboardMarkup(btn)
-        await query.message.reply_photo(
-            photo=PAYMENT_QR,
-            caption="**⚡️Buy Premium Now\n\n ╭━━━━━━━━╮\n    Premium Plans\n  • ₹10 - 1 day (Trial)\n  • ₹25 - 1 Week (Trial)\n  • ₹50 - 1 Month\n  • ₹120 - 3 Months\n  • ₹220 - 6 Months\n  • ₹400 - 1 Year\n╰━━━━━━━━╯\n\nPremium Features ♤ᵀ&ᶜ\n\n☆ New/Old Movies and Series\n☆ High Quality available\n☆ Get Files Directly \n☆ High speed Download links\n☆ Full Admin support \n☆ Request will be completed in 1 hour if available.\n\nᴜᴘɪ ɪᴅ ➢ <code>Rishikesh-Sharma09@axl</code>\n\n⚠️Send SS After Payment⚠️\n\n~ After sending a Screenshot please give us some time to add you in the premium version.**",
-            reply_markup=reply_markup
-        )
-        return 
-                
+        user_id = query.from_user.id
+        free_trial_status = await db.get_free_trial_status(user_id)
+        if free_trial_status:           
+            btn = [            
+                [InlineKeyboardButton("🍁 𝗖𝗵𝗲𝗰𝗸 𝗔𝗹𝗹 𝗣𝗹𝗮𝗻𝘀 & 𝗣𝗿𝗶𝗰𝗲 🍁", callback_data="plans")],
+                [InlineKeyboardButton("⚠️ ᴄʟᴏsᴇ / ᴅᴇʟᴇᴛᴇ ⚠️", callback_data="close_data")]
+            ]
+            reply_markup = InlineKeyboardMarkup(btn)
+            await client.send_photo(
+                chat_id=user_id,
+                photo="https://graph.org/file/7245a826baf54607169a2.jpg",
+                caption="**Pʀᴇᴍɪᴜᴍ Fᴇᴀᴛᴜʀᴇs 🎁\n○ ɴᴏ ɴᴇᴇᴅ ᴛᴏ ᴠᴇʀɪғʏ\n○ ᴅɪʀᴇᴄᴛ ғɪʟᴇs \n○ ᴀᴅ-ғʀᴇᴇ ᴇxᴘᴇʀɪᴇɴᴄᴇ \n○ ʜɪɢʜ-sᴘᴇᴇᴅ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ\n○ ᴍᴜʟᴛɪ-ᴘʟᴀʏᴇʀ sᴛʀᴇᴀᴍɪɴɢ ʟɪɴᴋs\n○ ᴜɴʟɪᴍɪᴛᴇᴅ ᴍᴏᴠɪᴇs & sᴇʀɪᴇs\n○ ꜰᴜʟʟ ᴀᴅᴍɪɴ sᴜᴘᴘᴏʀᴛ\n○ ʀᴇǫᴜᴇsᴛ ᴡɪʟʟ ʙᴇ ᴄᴏᴍᴘʟᴇᴛᴇᴅ ɪɴ 1ʜ ɪꜰ ᴀᴠᴀɪʟᴀʙʟᴇ\n\n➥ᴄʜᴇᴄᴋ ʏᴏᴜʀ ᴀᴄᴛɪᴠᴇ ᴘʟᴀɴ /my_plan\n\n‼️ ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴛᴏ ᴄʜᴇᴄᴋ ᴀʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ ᴘʟᴀɴs & ɪᴛ's ᴘʀɪᴄᴇs**",
+                reply_markup=reply_markup
+            )
+            return
+        else:
+            btn = [
+                [InlineKeyboardButton("🍁 𝗖𝗵𝗲𝗰𝗸 𝗔𝗹𝗹 𝗣𝗹𝗮𝗻𝘀 & 𝗣𝗿𝗶𝗰𝗲 🍁", callback_data="plans")],
+                [InlineKeyboardButton("🎉 ɢᴇᴛ 5 ᴍɪɴᴜᴛᴇs ꜰʀᴇᴇ ᴛʀᴀɪʟ 🎉", callback_data="get_trail")]
+            ]
+            reply_markup = InlineKeyboardMarkup(btn)
+            await client.send_photo(
+                chat_id=user_id,
+                photo="https://graph.org/file/7245a826baf54607169a2.jpg",
+                caption="**Pʀᴇᴍɪᴜᴍ Fᴇᴀᴛᴜʀᴇs 🎁\n○ ɴᴏ ɴᴇᴇᴅ ᴛᴏ ᴠᴇʀɪғʏ\n○ ᴅɪʀᴇᴄᴛ ғɪʟᴇs \n○ ᴀᴅ-ғʀᴇᴇ ᴇxᴘᴇʀɪᴇɴᴄᴇ \n○ ʜɪɢʜ-sᴘᴇᴇᴅ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ\n○ ᴍᴜʟᴛɪ-ᴘʟᴀʏᴇʀ sᴛʀᴇᴀᴍɪɴɢ ʟɪɴᴋs\n○ ᴜɴʟɪᴍɪᴛᴇᴅ ᴍᴏᴠɪᴇs & sᴇʀɪᴇs\n○ ꜰᴜʟʟ ᴀᴅᴍɪɴ sᴜᴘᴘᴏʀᴛ\n○ ʀᴇǫᴜᴇsᴛ ᴡɪʟʟ ʙᴇ ᴄᴏᴍᴘʟᴇᴛᴇᴅ ɪɴ 1ʜ ɪꜰ ᴀᴠᴀɪʟᴀʙʟᴇ\n\n➥ᴄʜᴇᴄᴋ ʏᴏᴜʀ ᴀᴄᴛɪᴠᴇ ᴘʟᴀɴ /my_plan\n\n‼️ ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴ ᴛᴏ ᴄʜᴇᴄᴋ ᴀʟʟ ᴀᴠᴀɪʟᴀʙʟᴇ ᴘʟᴀɴs & ɪᴛ's ᴘʀɪᴄᴇs**",
+                reply_markup=reply_markup
+            )            
+            return    
+
+    
     elif query.data.startswith("checksub"):
         ident, mc = query.data.split("#")
         settings = await get_settings(int(mc.split("_", 2)[1]))
